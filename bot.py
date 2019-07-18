@@ -1,13 +1,14 @@
+import os
+
 import telebot
 from jinja2 import Template
-from os import getenv
+from dotenv import load_dotenv
+from models import Pizza, Choice
 
-from models import catalog
-
-TOKEN = getenv('BOT_TOKEN')
+load_dotenv()
+TOKEN = os.environ.get('TELEGRAM_TOKEN')
 if not TOKEN:
     raise Exception('BOT_TOKEN should be specified')
-
 bot = telebot.TeleBot(TOKEN)
 
 with open('templates/catalog.md', 'r') as catalog_file:
@@ -15,6 +16,8 @@ with open('templates/catalog.md', 'r') as catalog_file:
 
 with open('templates/greetings.md', 'r') as greetings_file:
     greetings_tmpl = Template(greetings_file.read())
+
+catalog = list(product for product in Pizza.query.all())
 
 @bot.message_handler(commands=['start'])
 def greet(message):
