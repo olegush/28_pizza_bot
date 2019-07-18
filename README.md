@@ -46,7 +46,7 @@ from models import Pizza, Choice
 db.create_all()
 ```
 
-Database will be created in the **db** dir. Then, export data from **catalog.json** with run **export.py**.
+Database will be created in the **db** dir. Then, import data from **catalog.json** with run **import.py**.
 
 
 5. Change templates in the **templates** folder if you need.

@@ -17,7 +17,16 @@ with open('templates/catalog.md', 'r') as catalog_file:
 with open('templates/greetings.md', 'r') as greetings_file:
     greetings_tmpl = Template(greetings_file.read())
 
-catalog = list(product for product in Pizza.query.all())
+catalog = Pizza.query.join(Choice).all()
+
+catalog = list({
+            'title': product.title,
+            'description': product.description,
+            'choices': list({
+                        'title': choice.title,
+                        'price': choice.price}
+                        for choice in product.choices)}
+            for product in catalog)
 
 @bot.message_handler(commands=['start'])
 def greet(message):

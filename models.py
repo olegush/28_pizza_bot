@@ -9,8 +9,7 @@ class Pizza(db.Model):
     choices = db.relationship('Choice')
 
     def __repr__(self):
-        return "{'title': %r, 'description': %r, 'choices': %r}" % \
-                (self.title, self.description, self.choices)
+        return '<Pizza %r>' % (self.title)
 
 
 class Choice(db.Model):
@@ -21,4 +20,4 @@ class Choice(db.Model):
     pizza_id = db.Column(db.Integer, db.ForeignKey('pizza.id'))
 
     def __repr__(self):
-        return "{'title': %r, 'price': %r}" % (self.title, self.price)
+        return '<Choice %r>' % (self.title)
