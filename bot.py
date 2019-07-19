@@ -19,14 +19,14 @@ with open('templates/greetings.md', 'r') as greetings_file:
 
 catalog = Pizza.query.join(Choice).all()
 
-catalog = list({
+catalog = [{
             'title': product.title,
             'description': product.description,
             'choices': list({
                         'title': choice.title,
                         'price': choice.price}
                         for choice in product.choices)}
-            for product in catalog)
+            for product in catalog]
 
 @bot.message_handler(commands=['start'])
 def greet(message):
